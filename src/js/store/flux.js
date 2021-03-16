@@ -16,11 +16,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(response => response.json())
 					.then(data => setStore({ planets: data.results }));
 			},
-			addToFavorites: (item, index) => {
+			addToFavoritesPeople: (item, index) => {
 				let favoriteList = getStore().favorites;
 				let person = getStore().people[index];
-				// let planet = getStore().planets[index]
+				person.type = "people";
 				setStore({ favorites: [...favoriteList, person] });
+			},
+			addToFavoritesPlanets: (item, index) => {
+				let favoriteList = getStore().favorites;
+				let planet = getStore().planets[index];
+				planet.type = "planets";
+				setStore({ favorites: [...favoriteList, planet] });
+			},
+			removeFavorite: index => {
+				let favoriteList = getStore().favorites;
+				let filteredArray = favoriteList.filter((f, i) => i !== index);
+				setStore({ favorites: filteredArray });
 			}
 		}
 	};

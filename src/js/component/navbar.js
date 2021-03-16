@@ -5,6 +5,15 @@ import { Dropdown } from "react-bootstrap";
 
 export const Navbar = () => {
 	const { store, actions } = useContext(Context);
+	const currentIndex = (name, type) => {
+		let finalIndex = null;
+		if (type === "people") {
+			finalIndex = store.people.findIndex(i => i.name === name);
+		} else {
+			finalIndex = store.planets.findIndex(i => i.name === name);
+		}
+		return finalIndex;
+	};
 
 	return (
 		<nav className="navbar navbar-light bg-light mb-3">
@@ -18,10 +27,12 @@ export const Navbar = () => {
 
 				<Dropdown.Menu>
 					{store.favorites.map((item, index) => {
-						let url = item.url.charAt(28) - 1;
 						return (
 							<Dropdown.Item key={index}>
-								<Link to={`/people/${url}`}>{item.name}</Link>
+								<Link to={`/${item.type}/${currentIndex(item.name, item.type)}`}>{item.name}</Link>
+								<span onClick={() => actions.removeFavorite(index)}>
+									<i className="far fa-trash-alt float-right" />
+								</span>
 							</Dropdown.Item>
 						);
 					})}
@@ -33,11 +44,3 @@ export const Navbar = () => {
 		</nav>
 	);
 };
-
-/*Need to figure out how to make the favorites items link to the proper single
-page. this solution works until obi wan because his url is /10/, which i cant
-subtract one from, it returns 0 and luke skywalker
-
-Also need to figure out functionality for both people and planets, everything involving favorites and single views works well with people but only halfway with planets
-
-Other than that all the requirements are done, can also attempt the extra point stuff but I want to get this other shit figured out first*/

@@ -20,7 +20,7 @@ export const PeopleCard = props => {
 					</Link>
 					<button
 						onClick={() => {
-							actions.addToFavorites(props.name, props.id);
+							actions.addToFavoritesPeople(props.name, props.id);
 						}}
 						className="float-right btn btn-outline-warning">
 						<i className="far fa-heart" />
@@ -46,7 +46,7 @@ export const PlanetCard = props => {
 					</Link>
 					<button
 						onClick={() => {
-							actions.addToFavorites(props.name, props.id);
+							actions.addToFavoritesPlanets(props.name, props.id);
 						}}
 						className="float-right btn btn-outline-warning">
 						<i className="far fa-heart" />
